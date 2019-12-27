@@ -13,6 +13,16 @@ export default function Reviews(props) {
         setReview(e.target.value);
     }
     
+    const updateReviews = (id) => {
+        reloadHotel(id).then(r => {
+            r.json().then(h => {
+                reloadReviewsState(h.reviews);
+            })
+        });
+    }
+
+    updateReviews(props.id);
+
     const saveReviewCallBack = () => {
         
         if (review.length > 0) {
@@ -24,11 +34,7 @@ export default function Reviews(props) {
             saveReview(payload).then(s => {
                 if (s.status == 200) {
                     setReview("");
-                    reloadHotel(props.id).then(r => {
-                        r.json().then(h => {
-                            reloadReviewsState(h.reviews);
-                        })
-                    })
+                    updateReviews(props.id);
                 } else {
                     alert("Couldnt Save");
                 }
@@ -46,7 +52,7 @@ export default function Reviews(props) {
         return (
             <div key={r.id}>
                 <p>
-                    {user} wrote on {date}:
+                    <strong>{user}</strong> wrote on <strong>{date}</strong>:
                 </p>
                 <div className="alert alert-primary" role="alert">
                     {txt}

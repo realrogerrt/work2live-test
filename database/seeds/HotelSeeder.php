@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Hotel;
 
-class reviews extends Seeder
+class HotelSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class reviews extends Seeder
      */
     public function run()
     {
-        //
+        factory(Hotel::class, 23)->create();
     }
 }

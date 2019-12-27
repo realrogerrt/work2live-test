@@ -71366,6 +71366,16 @@ function Reviews(props) {
     setReview(e.target.value);
   };
 
+  var updateReviews = function updateReviews(id) {
+    Object(_utilities__WEBPACK_IMPORTED_MODULE_2__["reloadHotel"])(id).then(function (r) {
+      r.json().then(function (h) {
+        reloadReviewsState(h.reviews);
+      });
+    });
+  };
+
+  updateReviews(props.id);
+
   var saveReviewCallBack = function saveReviewCallBack() {
     if (review.length > 0) {
       console.log("boutta save ".concat(review));
@@ -71376,11 +71386,7 @@ function Reviews(props) {
       Object(_utilities__WEBPACK_IMPORTED_MODULE_2__["saveReview"])(payload).then(function (s) {
         if (s.status == 200) {
           setReview("");
-          Object(_utilities__WEBPACK_IMPORTED_MODULE_2__["reloadHotel"])(props.id).then(function (r) {
-            r.json().then(function (h) {
-              reloadReviewsState(h.reviews);
-            });
-          });
+          updateReviews(props.id);
         } else {
           alert("Couldnt Save");
         }
@@ -71398,7 +71404,7 @@ function Reviews(props) {
     var date = r.created_at;
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       key: r.id
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, user, " wrote on ", date, ":"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, user), " wrote on ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, date), ":"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "alert alert-primary",
       role: "alert"
     }, txt));
