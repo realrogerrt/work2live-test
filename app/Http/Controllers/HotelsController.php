@@ -9,7 +9,7 @@ class HotelsController extends Controller
 {
     public function index()
     {
-        return Hotel::with('reviews')->get();
+        return Hotel::with('reviews', 'reviews.user')->get();
     }
 
     public function get($id)
