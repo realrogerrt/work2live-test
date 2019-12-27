@@ -71210,16 +71210,18 @@ function Hotel(h) {
       description = h.description;
   var reviews = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null);
   var classSize = "col-md-3 mb-5";
+  var descriptionClass = "card-body text-truncate";
 
   if (edit) {
     reviews = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Reviews__WEBPACK_IMPORTED_MODULE_2__["default"], h);
     classSize = "col-md-12 mb-5";
+    descriptionClass = "card-body";
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: classSize
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "card"
+    className: "card text-white bg-secondary"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-header d-flex justify-content-between"
   }, name, " ", edit, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -71227,7 +71229,7 @@ function Hotel(h) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
     icon: _primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__["Pencil"]
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "card-body text-truncate"
+    className: descriptionClass
   }, description)), reviews);
 }
 

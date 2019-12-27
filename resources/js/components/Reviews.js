@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Octicon, { Comment, CloudUpload } from "@primer/octicons-react";
 import { saveReview, reloadHotel } from "../utilities";
 
-
-
 export default function Reviews(props) {
     
     const [review, setReview] = useState("");
