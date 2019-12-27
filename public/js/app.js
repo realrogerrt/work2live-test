@@ -71184,7 +71184,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @primer/octicons-react */ "./node_modules/@primer/octicons-react/dist/index.esm.js");
-/* harmony import */ var _ViewHotel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ViewHotel */ "./resources/js/components/ViewHotel.js");
+/* harmony import */ var _Reviews__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Reviews */ "./resources/js/components/Reviews.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -71202,22 +71202,18 @@ function Hotel(h) {
       edit = _useState2[0],
       setEdit = _useState2[1];
 
-  var handleClose = function handleClose() {
-    return setEdit(false);
-  };
-
   var handleShow = function handleShow() {
-    return setEdit(true);
+    setEdit(!edit);
   };
 
   var name = h.name,
       description = h.description;
-  var vh = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null);
-  var classSize = "col-md-3";
+  var reviews = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null);
+  var classSize = "col-md-3 mb-5";
 
   if (edit) {
-    vh = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ViewHotel__WEBPACK_IMPORTED_MODULE_2__["default"], h);
-    classSize = "col-md-12";
+    reviews = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Reviews__WEBPACK_IMPORTED_MODULE_2__["default"], h);
+    classSize = "col-md-12 mb-5";
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -71232,7 +71228,7 @@ function Hotel(h) {
     icon: _primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__["Pencil"]
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-body text-truncate"
-  }, description), vh));
+  }, description)), reviews);
 }
 
 /***/ }),
@@ -71330,21 +71326,148 @@ if (document.getElementById('hotels')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/ViewHotel.js":
-/*!**********************************************!*\
-  !*** ./resources/js/components/ViewHotel.js ***!
-  \**********************************************/
+/***/ "./resources/js/components/Reviews.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/Reviews.js ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ViewHotel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Reviews; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @primer/octicons-react */ "./node_modules/@primer/octicons-react/dist/index.esm.js");
+/* harmony import */ var _utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utilities */ "./resources/js/utilities.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function ViewHotel(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Im editting");
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+function Reviews(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      review = _useState2[0],
+      setReview = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(props.reviews),
+      _useState4 = _slicedToArray(_useState3, 2),
+      reviews = _useState4[0],
+      reloadReviewsState = _useState4[1];
+
+  var handleChange = function handleChange(e) {
+    setReview(e.target.value);
+  };
+
+  var saveReviewCallBack = function saveReviewCallBack() {
+    if (review.length > 0) {
+      console.log("boutta save ".concat(review));
+      var payload = {
+        'review': review,
+        'hotel_id': props.id
+      };
+      Object(_utilities__WEBPACK_IMPORTED_MODULE_2__["saveReview"])(payload).then(function (s) {
+        if (s.status == 200) {
+          setReview("");
+          Object(_utilities__WEBPACK_IMPORTED_MODULE_2__["reloadHotel"])(props.id).then(function (r) {
+            r.json().then(function (h) {
+              reloadReviewsState(h.reviews);
+            });
+          });
+        } else {
+          alert("Couldnt Save");
+        }
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    } else {
+      alert("Cannot save empty review");
+    }
+  };
+
+  var reviewsWells = reviews.map(function (r) {
+    var user = r.user.name;
+    var txt = r.review;
+    var date = r.created_at;
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: r.id
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, user, " wrote on ", date, ":"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "alert alert-primary",
+      role: "alert"
+    }, txt));
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-header"
+  }, "Reviews"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group mb-3"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-prepend"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    icon: _primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__["Comment"]
+  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    onChange: handleChange,
+    value: review,
+    type: "text",
+    className: "form-control",
+    placeholder: "Leave a new review",
+    "aria-label": "review",
+    "aria-describedby": "basic-addon1"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "input-group-append"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: saveReviewCallBack
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    icon: _primer_octicons_react__WEBPACK_IMPORTED_MODULE_1__["CloudUpload"]
+  })))), reviewsWells));
+}
+
+/***/ }),
+
+/***/ "./resources/js/utilities.js":
+/*!***********************************!*\
+  !*** ./resources/js/utilities.js ***!
+  \***********************************/
+/*! exports provided: saveReview, reloadHotel */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "saveReview", function() { return saveReview; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reloadHotel", function() { return reloadHotel; });
+function saveReview(data) {
+  return fetch('/reviews', {
+    method: 'POST',
+    // *GET, POST, PUT, DELETE, etc.
+    mode: 'no-cors',
+    // no-cors, *cors, same-origin
+    cache: 'no-cache',
+    // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin',
+    // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json' // 'Content-Type': 'application/x-www-form-urlencoded',
+
+    },
+    redirect: 'follow',
+    // manual, *follow, error
+    referrerPolicy: 'no-referrer',
+    // no-referrer, *client
+    body: JSON.stringify(data)
+  });
+}
+function reloadHotel(id) {
+  return fetch('/hotels/' + id);
 }
 
 /***/ }),

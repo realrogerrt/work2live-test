@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import Octicon, { Pencil } from "@primer/octicons-react";
-import ViewHotel from './ViewHotel';
+import Reviews from './Reviews';
 
 
 export default function Hotel(h) {
     const [edit, setEdit] = useState(false);
 
-    const handleClose = () => setEdit(false);
-    const handleShow = () => setEdit(true);
+    const handleShow = () => {
+        setEdit(!edit);
+    }
     
     const {name, description} = h;
     
-    let vh = <span></span>;
-    let classSize = "col-md-3";
+    let reviews = <span></span>;
+    let classSize = "col-md-3 mb-5";
     if (edit) {
-        vh = <ViewHotel {...h} />;
-        classSize = "col-md-12";
+        reviews = <Reviews {...h} />;
+        classSize = "col-md-12 mb-5";
     }
    
     return (
@@ -30,8 +31,8 @@ export default function Hotel(h) {
                 <div className="card-body text-truncate">
                     {description}
                 </div>
-               {vh}
             </div>
+         {reviews}
          </div>
     )
 }

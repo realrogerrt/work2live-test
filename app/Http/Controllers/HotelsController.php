@@ -11,4 +11,9 @@ class HotelsController extends Controller
     {
         return Hotel::with('reviews', 'reviews.user')->get();
     }
+
+    public function get($id)
+    {
+        return Hotel::with('reviews', 'reviews.user')->find($id);
+    }
 }

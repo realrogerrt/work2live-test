@@ -8,11 +8,12 @@ class Review extends Model
 {
     public function hotel()
     {
-        return $this->hasOne(Hotel::class);
+        return $this->belongsTo(Hotel::class);
     }
     
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
+
 }

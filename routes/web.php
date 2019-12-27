@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/hotels', 'HotelsController@index');
+Route::get('/hotels/{id}', 'HotelsController@get');
+Route::post('/reviews', 'ReviewsController@create');
