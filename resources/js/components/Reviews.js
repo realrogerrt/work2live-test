@@ -60,7 +60,7 @@ export default function Reviews(props) {
         );
     })
     return (
-        <div className="card">
+        <div className="card text-white bg-primary">
             <div className="card-header">
                 Reviews
             </div>

@@ -4,6 +4,7 @@ import Hotel from './Hotel';
 import Error from './Error';
 
 export default class Hotels extends Component {
+
  
     render() {
         let hotels = this.props.data.map(h => {

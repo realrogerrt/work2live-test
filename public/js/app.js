@@ -71412,7 +71412,7 @@ function Reviews(props) {
     }, txt));
   });
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "card"
+    className: "card text-white bg-primary"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-header"
   }, "Reviews"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
